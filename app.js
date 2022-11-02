@@ -1,4 +1,8 @@
 const http = require("http");
+const { readFileSync } = require("fs");
+
+//it's requested once not everytime somebody visit the page because isn't in createServer function
+const homePage = readFileSync("./index.html");
 
 const server = http.createServer((req, res) => {
   console.log("ala bala mere");
@@ -6,7 +10,7 @@ const server = http.createServer((req, res) => {
 
   if (url === "/") {
     res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1>home page</h1>");
+    res.write(homePage);
     res.end();
   } else if (url === "/about") {
     //about page
