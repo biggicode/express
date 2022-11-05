@@ -6,9 +6,11 @@ const app = express();
 //set up static and middleware
 app.use(express.static("./public"));
 
-app.get("/", (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, "./navbar-app/index.html"));
-});
+// app.get("/", (req, res) => {
+//   res.status(200).sendFile(path.resolve(__dirname, "./navbar-app/index.html"));
+//   adding to assets
+//   SSR
+// });
 
 app.all("*", (req, res) => {
   res.status(404).send("cannot find the resource");
