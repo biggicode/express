@@ -48,7 +48,7 @@ app.put("/api/people/:id", (req, res) => {
 
   const person = people.find((person) => person.id === Number(id));
 
-  if (!name) {
+  if (!person) {
     return res
       .status(400)
       .json({ succes: false, msg: "can not find the person" });
@@ -61,6 +61,22 @@ app.put("/api/people/:id", (req, res) => {
   });
 
   res.status(200).json({ succes: true, data: newPeople });
+});
+
+app.delete("/api/people/:id", (req, res) => {
+  const { id } = req.params;
+
+  const person = people.find((person) => person.id === Number(id));
+
+  if (!person) {
+    return res
+      .status(400)
+      .json({ succes: false, msg: "can not find the person" });
+  }
+
+  const newPeople = people.filter((person) => person.id !== Number(id));
+
+  return res.status(200).json({ succes: true, data: newPeople });
 });
 
 app.listen(5000, () => {
