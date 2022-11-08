@@ -42,6 +42,27 @@ app.post("/login", (req, res) => {
   res.status(401).send("Please provide account");
 });
 
+app.put("/api/people/:id", (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  const person = people.find((person) => person.id === Number(id));
+
+  if (!name) {
+    return res
+      .status(400)
+      .json({ succes: false, msg: "can not find the person" });
+  }
+  const newPeople = people.map((person) => {
+    if (person.id === Number(id)) {
+      person.name = name;
+    }
+    return person;
+  });
+
+  res.status(200).json({ succes: true, data: newPeople });
+});
+
 app.listen(5000, () => {
   console.log("Server is listening on 5000");
 });
